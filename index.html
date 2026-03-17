@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMART COVER & ACCESSORIES</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#0f172a;color:white}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;background:#020617}
+.logo{font-size:22px;font-weight:bold}
+nav a{color:white;margin:0 10px;text-decoration:none}
+.hero{padding:40px;text-align:center}
+.hero h1{font-size:32px}
+.container{padding:20px}
+.search{margin-bottom:20px}
+.search input{width:100%;padding:10px;border-radius:10px;border:none}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:#1e293b;padding:15px;border-radius:15px;text-align:center;transition:.3s}
+.card:hover{transform:scale(1.05)}
+.card img{width:100%;border-radius:10px}
+.btn{display:inline-block;margin-top:10px;padding:10px;background:#22c55e;color:white;text-decoration:none;border-radius:10px}
+.category{margin-bottom:20px}
+.category button{margin:5px;padding:8px 12px;border:none;border-radius:8px;background:#334155;color:white;cursor:pointer}
+footer{text-align:center;padding:20px;background:#020617;margin-top:30px}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">SMART COVER & ACCESSORIES</div>
+<nav>
+<a href="#">Home</a>
+<a href="#prodotti">Prodotti</a>
+<a href="#contatti">Contatti</a>
+</nav>
+</header>
+
+<div class="hero">
+<h1>Best Mobile Accessories in Town 🔥</h1>
+<p>Cover • Charger • Adapter • Power Bank & More</p>
+</div>
+
+<div class="container" id="prodotti">
+
+<div class="search">
+<input type="text" id="search" placeholder="Cerca prodotto...">
+</div>
+
+<div class="category">
+<button onclick="filter('all')">All</button>
+<button onclick="filter('cover')">Cover</button>
+<button onclick="filter('charger')">Charger</button>
+<button onclick="filter('adapter')">Adapter</button>
+</div>
+
+<div class="products" id="productList"></div>
+
+</div>
+
+<footer id="contatti">
+<p>Ordina direttamente su WhatsApp 📲</p>
+<p>+39 3286075594</p>
+</footer>
+
+<script>
+const products = [
+{
+name:"iPhone Cover Premium",
+category:"cover",
+img:"https://via.placeholder.com/200",
+msg:"Voglio ordinare iPhone Cover"
+},
+{
+name:"Fast Charger",
+category:"charger",
+img:"https://via.placeholder.com/200",
+msg:"Voglio ordinare Charger"
+},
+{
+name:"HDMI Adapter",
+category:"adapter",
+img:"https://via.placeholder.com/200",
+msg:"Voglio ordinare Adapter"
+}
+];
+
+function displayProducts(list){
+const container = document.getElementById('productList');
+container.innerHTML='';
+list.forEach(p=>{
+container.innerHTML += `
+<div class="card">
+<img src="${p.img}"/>
+<h3>${p.name}</h3>
+<a class="btn" href="https://wa.me/393286075594?text=${p.msg}">
+Ordina su WhatsApp
+</a>
+</div>`;
+});
+}
+
+function filter(cat){
+if(cat==='all') return displayProducts(products);
+const filtered = products.filter(p=>p.category===cat);
+displayProducts(filtered);
+}
+
+document.getElementById('search').addEventListener('input', function(){
+const value = this.value.toLowerCase();
+const filtered = products.filter(p=>p.name.toLowerCase().includes(value));
+displayProducts(filtered);
+});
+
+// initial load
+displayProducts(products);
+</script>
+
+</body>
+</html>
